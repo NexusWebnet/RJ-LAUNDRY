@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place New Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+            <a href="../customer/dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </nav>
+
+    <section class="place-order-section">
+        <div class="container">
+            <h1>Place New Order</h1>
+
+            <!-- Service Selection -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Select Service</h3>
+                <div class="services-grid">
+                    <div class="service-option active">
+                        <i class="fas fa-tshirt"></i>
+                        <span>Wash & Iron</span>
+                    </div>
+                    <div class="service-option">
+                        <i class="fas fa-washing-machine"></i>
+                        <span>Only Wash</span>
+                    </div>
+                    <div class="service-option">
+                        <i class="fas fa-iron"></i>
+                        <span>Only Iron</span>
+                    </div>
+                    <div class="service-option">
+                        <i class="fas fa-suitcase"></i>
+                        <span>Dry Cleaning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantity Type Toggle -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Quantity Type</h3>
+                <div class="toggle-group">
+                    <button class="toggle-btn active" id="kgBtn" onclick="switchQuantityType(0)">By Kilogram (Kg)</button>
+                    <button class="toggle-btn" id="clothesBtn" onclick="switchQuantityType(1)">By Number of Clothes</button>
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="order-step" data-aos="fade-up">
+                <h3 id="quantityLabel">Quantity (Kg)</h3>
+                <div class="quantity-input">
+                    <button onclick="decreaseQty()">−</button>
+                    <input type="number" id="quantity" value="5" min="1">
+                    <button onclick="increaseQty()">+</button>
+                    <span class="unit" id="unitLabel">Kg</span>
+                </div>
+            </div>
+
+            <!-- Pickup & Delivery -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Pickup & Delivery</h3>
+                <div class="form-group">
+                    <label>Pickup Address</label>
+                    <input type="text" value="Your Current Address" placeholder="Enter pickup address">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" value="Same as pickup" placeholder="Enter delivery address">
+                </div>
+                <div class="form-group">
+                    <label>Preferred Pickup Date</label>
+                    <input type="date">
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-item">
+                    <span id="selectedService">Wash & Iron</span>
+                    <span>GH₵ <strong id="totalAmount">75.00</strong></span>
+                </div>
+                <div class="total-row">
+                    <strong>Total</strong>
+                    <strong id="grandTotal">GH₵75.00</strong>
+                </div>
+            </div>
+
+            <button onclick="placeOrder()" class="btn btn-order-now full-width">
+                Place Order • GH₵75.00
+            </button>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        let quantity = 5;
+        let currentRate = 15;
+        let isKg = true;
+
+        function switchQuantityType(mode) {
+            isKg = mode === 0;
+            document.getElementById('kgBtn').classList.toggle('active', isKg);
+            document.getElementById('clothesBtn').classList.toggle('active', !isKg);
+            document.getElementById('quantityLabel').textContent = isKg ? "Quantity (Kg)" : "Number of Clothes";
+            document.getElementById('unitLabel').textContent = isKg ? "Kg" : "Clothes";
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = quantity * currentRate;
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            document.getElementById('grandTotal').textContent = 'GH₵' + total.toFixed(2);
+            document.querySelector('.btn-order-now').textContent = `Place Order • GH₵${total.toFixed(2)}`;
+        }
+
+        function increaseQty() {
+            quantity++;
+            document.getElementById('quantity').value = quantity;
+            updateTotal();
+        }
+
+        function decreaseQty() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').value = quantity;
+                updateTotal();
+            }
+        }
+
+        function placeOrder() {
+            if (confirm("Confirm your order?")) {
+                alert("✅ Order placed successfully!\nOrder #RL" + Math.floor(100000 + Math.random() * 900000));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateTotal);
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="place-order.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2>Review Order</h2>
+        </div>
+    </nav>
+
+    <section class="review-section">
+        <div class="container">
+
+            <!-- Service -->
+            <div class="review-item">
+                <div class="review-label">Service</div>
+                <div class="review-value">Wash & Iron</div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="review-item">
+                <div class="review-label">Quantity</div>
+                <div class="review-value">5.0 kg</div>
+            </div>
+
+            <!-- Pickup -->
+            <div class="review-item">
+                <div class="review-label">Pickup</div>
+                <div class="review-value">
+                    27 May 2025, 9:00 AM - 11:00 AM<br>
+                    Block 2, Adjiriganor Rd,<br>
+                    East Legon, Accra
+                </div>
+            </div>
+
+            <!-- Delivery -->
+            <div class="review-item">
+                <div class="review-label">Delivery</div>
+                <div class="review-value">
+                    29 May 2025, 4:00 PM - 6:00 PM<br>
+                    Same as pickup address
+                </div>
+            </div>
+
+            <!-- Special Instructions -->
+            <div class="review-item">
+                <div class="review-label">Special Instructions</div>
+                <div class="review-value">
+                    Laundry bag left at the gate
+                </div>
+            </div>
+
+            <!-- Total -->
+            <div class="total-section">
+                <div class="total-label">Total Amount</div>
+                <div class="total-amount">GH₵<span>75.00</span></div>
+            </div>
+
+            <!-- Confirm Button -->
+            <button onclick="confirmOrder()" class="btn confirm-btn">
+                Confirm Order
+            </button>
+
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        function confirmOrder() {
+            if (confirm("Confirm this order?")) {
+                alert("✅ Order Confirmed Successfully!\nOrder #RL" + Math.floor(100000 + Math.random() * 900000));
+                // Redirect to dashboard or order details
+                window.location.href = "dashboard.html";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="my-orders.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2>Order Details</h2>
+        </div>
+    </nav>
+
+    <section class="order-details-section">
+        <div class="container">
+
+            <!-- Order ID -->
+            <div class="order-id-header">
+                <div class="order-id">#RJ12345</div>
+                <span class="status-badge">At Laundry</span>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-info">
+                        <h4>Order Placed</h4>
+                        <p>25 May 2025, 10:30 AM</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-info">
+                        <h4>Pickup</h4>
+                        <p>25 May 2025, 11:45 AM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Info -->
+            <div class="order-info-box">
+                <div class="info-row">
+                    <div class="info-label">Service</div>
+                    <div class="info-value">Wash & Iron</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Quantity</div>
+                    <div class="info-value">5.0 kg</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Amount</div>
+                    <div class="info-value">GH₵75.00</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Pickup</div>
+                    <div class="info-value">
+                        27 May 2025, 9:00 AM - 11:00 AM<br>
+                        Block 2, Adjiriganor Rd,<br>
+                        East Legon, Accra
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Delivery</div>
+                    <div class="info-value">
+                        29 May 2025, 4:00 PM - 6:00 PM<br>
+                        Same as pickup address
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Button -->
+            <button onclick="cancelOrder()" class="btn cancel-btn">
+                Cancel Order
+            </button>
+
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        function cancelOrder() {
+            if (confirm("Are you sure you want to cancel this order?")) {
+                alert("Order has been cancelled.");
+            }
+        }
+    </script>
+</body>
+</html>

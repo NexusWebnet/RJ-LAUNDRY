@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2>Track Order</h2>
+        </div>
+    </nav>
+
+    <section class="tracking-section">
+        <div class="container">
+            <div class="order-info">
+                <div class="order-id">Order ID <strong>#RL12345</strong></div>
+            </div>
+
+            <!-- Tracking Timeline -->
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Order Placed</h4>
+                        <p>25 May 2025, 10:30 AM</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Pickup Scheduled</h4>
+                        <p>25 May 2025, 11:00 AM</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Picked Up</h4>
+                        <p>25 May 2025, 11:45 AM</p>
+                        <small>Rider is on the way to the laundry.</small>
+                    </div>
+                </div>
+
+                <div class="timeline-item current">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>At Laundry</h4>
+                        <p>25 May 2025, 12:30 PM</p>
+                        <small>Your clothes have arrived at our laundry.</small>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Washing</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Ironing</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Ready</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Out for Delivery</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Delivered</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help -->
+            <div class="help-box">
+                <i class="fas fa-headset"></i>
+                <span>Need Help? Contact Support</span>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+    
+</head>
+<body>
+
+    <!-- Top Green Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <h1>Hello, Kofi 👋</h1>
+            <p>What would you like to do today?</p>
+        </div>
+    
+
+    <div class="dashboard-container">
+
+        <!-- Book a Laundry Card -->
+        <div class="book-card" data-aos="fade-up">
+            <div class="book-content">
+                <h2>Book a Laundry</h2>
+                <p>Pickup & delivery quick and easy.</p>
+                <a href="../customer/place-order.html" class="btn btn-order">Order Now</a>
+            </div>
+            <div class="book-image">
+                <img src="../assets/images/about-image.png" alt="Laundry Basket">
+            </div>
+        </div>
+    </header>
+
+        <!-- Active Order -->
+        <div class="active-order" data-aos="fade-up">
+            <div class="order-header">
+                <h3>My Active Order</h3>
+                <span class="status">At Laundry</span>
+            </div>
+            <p class="order-number">#RL12345</p>
+            <p class="delivery-info">Est. Delivery: 27 May, 4:00 PM</p>
+            <a href="#" class="track-link">Track Order →</a>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions" data-aos="fade-up">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="#" class="action-card">
+                    <i class="fas fa-box"></i>
+                    <span>My Orders</span>
+                </a>
+                <a href="#" class="action-card">
+                    <i class="fas fa-search"></i>
+                    <span>Track Order</span>
+                </a>
+                <a href="#" class="action-card">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet</span>
+                </a>
+                <a href="#" class="action-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Addresses</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+     <!-- footer section of the site  -->
+         <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="my-orders.html" class="nav-item">
+            <i class="fas fa-box"></i>
+            <span>Orders</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>Wallet</span>
+        </a>
+        <a href="notification.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Account</span>
+        </a>
+    </nav>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

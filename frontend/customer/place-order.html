@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place New Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+             <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <div class="user-info" id="userInfo">Loading...</div>
+                <a href="#" onclick="logout()" class="btn btn-login">Logout</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+         <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#" onclick="logout()" class="btn btn-login">Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+
+    <section class="place-order-section">
+        <div class="container">
+            <h1>Place New Order</h1>
+
+            <!-- Service Selection -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Select Service</h3>
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Quantity Type -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Quantity Type</h3>
+                <div class="toggle-group">
+                    <button class="toggle-btn active" id="kgBtn" onclick="switchQuantityType(0)">By Kilogram (Kg)</button>
+                    <button class="toggle-btn" id="clothesBtn" onclick="switchQuantityType(1)">By Number of Clothes</button>
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="order-step" data-aos="fade-up">
+                <h3 id="quantityLabel">Quantity (Kg)</h3>
+                <div class="quantity-input">
+                    <button onclick="decreaseQty()">−</button>
+                    <input type="number" id="quantity" value="5" min="1" onchange="updateTotal()">
+                    <button onclick="increaseQty()">+</button>
+                    <span class="unit" id="unitLabel">Kg</span>
+                </div>
+            </div>
+
+            <!-- Pickup & Delivery -->
+            <div class="order-step" data-aos="fade-up">
+                <h3>Pickup & Delivery</h3>
+                <div class="form-group">
+                    <label>Pickup Address</label>
+                    <input type="text" id="pickupAddress" value="123 Main Street, Accra" placeholder="Pickup Address">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" id="deliveryAddress" value="Same as pickup" placeholder="Delivery Address">
+                </div>
+                <div class="form-group">
+                    <label>Preferred Pickup Date</label>
+                    <input type="date" id="pickupDate">
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-item">
+                    <span id="selectedService">Wash & Iron</span>
+                    <span>GH₵ <strong id="totalAmount">75.00</strong></span>
+                </div>
+                <div class="total-row">
+                    <strong>Total</strong>
+                    <strong id="grandTotal">GH₵75.00</strong>
+                </div>
+            </div>
+
+            <button onclick="placeOrder()" class="btn btn-order-now full-width">
+                Place Order • GH₵75.00
+            </button>
+        </div>
+    </section>
+
+    <footer class="footer"> ... your footer </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../index.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        let selectedService = { id: 1, name: "Wash & Iron", rate: 15 };
+
+        // Sample services
+        const services = [
+            { id: 1, name: "Wash & Iron", rate: 15, icon: "fas fa-tshirt" },
+            { id: 2, name: "Only Wash", rate: 10, icon: "fas fa-washing-machine" },
+            { id: 3, name: "Only Iron", rate: 8, icon: "fas fa-iron" },
+            { id: 4, name: "Dry Cleaning", rate: 25, icon: "fas fa-suitcase" }
+        ];
+
+        function renderServices() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+            services.forEach(service => {
+                const div = document.createElement('div');
+                div.className = `service-option ${service.id === selectedService.id ? 'active' : ''}`;
+                div.innerHTML = `<i class="${service.icon}"></i><span>${service.name}</span>`;
+                div.onclick = () => {
+                    selectedService = service;
+                    renderServices();
+                    updateTotal();
+                };
+                grid.appendChild(div);
+            });
+        }
+
+        let quantity = 5;
+        let isKg = true;
+
+        function switchQuantityType(mode) {
+            isKg = mode === 0;
+            document.getElementById('kgBtn').classList.toggle('active', isKg);
+            document.getElementById('clothesBtn').classList.toggle('active', !isKg);
+            document.getElementById('quantityLabel').textContent = isKg ? "Quantity (Kg)" : "Number of Clothes";
+            document.getElementById('unitLabel').textContent = isKg ? "Kg" : "Clothes";
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = quantity * selectedService.rate;
+            document.getElementById('selectedService').textContent = selectedService.name;
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            document.getElementById('grandTotal').textContent = 'GH₵' + total.toFixed(2);
+            document.querySelector('.btn-order-now').textContent = `Place Order • GH₵${total.toFixed(2)}`;
+        }
+
+        function increaseQty() {
+            quantity++;
+            document.getElementById('quantity').value = quantity;
+            updateTotal();
+        }
+
+        function decreaseQty() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').value = quantity;
+                updateTotal();
+            }
+        }
+
+        async function placeOrder() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert("Please login first");
+                return;
+            }
+
+            const totalAmount = quantity * selectedService.rate;
+
+            const orderData = {
+                user_id: user.id,
+                service_id: selectedService.id,
+                quantity: quantity,
+                total_amount: totalAmount,
+                pickup_address: document.getElementById('pickupAddress').value,
+                delivery_address: document.getElementById('deliveryAddress').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`✅ Order placed successfully!\nOrder Number: ${result.order_number}`);
+                    window.location.href = "my-orders.html";
+                } else {
+                    alert("❌ " + result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert("❌ Could not connect to server.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderServices();
+            updateTotal();
+            AOS.init();
+        });
+    </script>
+</body>
+</html>

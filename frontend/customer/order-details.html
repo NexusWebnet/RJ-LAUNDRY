@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+         <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="../assets/images/LOGO.png" alt="RJ Laundry Logo" class="logo-image">
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="register.html" class="btn btn-register">Register</a>
+            </div>
+
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="order-details-section">
+        <div class="container">
+
+            <!-- Order ID -->
+            <div class="order-id-header">
+                <div class="order-id">#RJ12345</div>
+                <span class="status-badge">At Laundry</span>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-info">
+                        <h4>Order Placed</h4>
+                        <p>25 May 2025, 10:30 AM</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-info">
+                        <h4>Pickup</h4>
+                        <p>25 May 2025, 11:45 AM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Info -->
+            <div class="order-info-box">
+                <div class="info-row">
+                    <div class="info-label">Service</div>
+                    <div class="info-value">Wash & Iron</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Quantity</div>
+                    <div class="info-value">5.0 kg</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Amount</div>
+                    <div class="info-value">GH₵75.00</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Pickup</div>
+                    <div class="info-value">
+                        27 May 2025, 9:00 AM - 11:00 AM<br>
+                        Block 2, Adjiriganor Rd,<br>
+                        East Legon, Accra
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Delivery</div>
+                    <div class="info-value">
+                        29 May 2025, 4:00 PM - 6:00 PM<br>
+                        Same as pickup address
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancel Button -->
+            <button onclick="cancelOrder()" class="btn cancel-btn">
+                Cancel Order
+            </button>
+
+        </div>
+    </section>
+
+        <!-- footer section of the site  -->
+         <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="../index.js"></script>
+
+    <script>
+        function cancelOrder() {
+            if (confirm("Are you sure you want to cancel this order?")) {
+                alert("Order has been cancelled.");
+            }
+        }
+    </script>
+</body>
+</html>

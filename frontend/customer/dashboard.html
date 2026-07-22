@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+             <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <div class="user-info" id="userInfo">Loading...</div>
+                <a href="#" onclick="logout()" class="btn btn-login">Logout</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+         <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#" onclick="logout()" class="btn btn-login">Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="welcome-section" data-aos="fade-up">
+            <h1 id="welcomeName">Welcome Back</h1>
+            <p>Ready for fresh clothes today?</p>
+        
+
+         <div class="book-card" data-aos="fade-up">
+            <div class="book-content">
+                <h2>Book a Laundry</h2>
+                <p>Pickup & delivery quick and easy.</p>
+                <a href="place-order.html" class="btn btn-order">Order Now</a>
+            </div>
+            <div class="book-image">
+                <img src="../assets/images/about-image.png" alt="Laundry">
+            </div>
+         </div>
+        </div>
+
+       <!-- Active Order (Dynamic) -->
+        <div class="active-order" id="activeOrderSection" data-aos="fade-up" style="display: none;">
+            <div class="order-header">
+                <h3>My Active Order</h3>
+                <span class="status" id="orderStatus">Processing</span>
+            </div>
+            <p class="order-number" id="orderNumber">#RL12345</p>
+            <p class="delivery-info" id="deliveryInfo">Est. Delivery: Tomorrow</p>
+            <a href="track-order.html" class="track-link">Track Order →</a>
+        </div>
+
+        <div class="quick-actions" data-aos="fade-up">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="my-orders.html" class="action-card">
+                    <i class="fas fa-box"></i>
+                    <span>My Orders</span>
+                </a>
+                <a href="track-order.html" class="action-card">
+                    <i class="fas fa-search"></i>
+                    <span>Track Order</span>
+                </a>
+                <a href="#" class="action-card">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet</span>
+                </a>
+                <a href="profile.html" class="action-card">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="../index.js"></script>
+
+    <script>
+        function loadUserData() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                document.getElementById('welcomeName').textContent = `Welcome, ${user.full_name}`;
+                document.getElementById('userInfo').innerHTML = `
+                    <span style="color:white;">${user.full_name}</span>
+                `;
+            } else {
+                window.location.href = "../login.html";
+            }
+        }
+
+        async function loadDashboard() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                window.location.href = "../login.html";
+                return;
+             }
+
+            document.getElementById('welcomeName').textContent = `Welcome, ${user.full_name}`;
+            document.getElementById('userInfo').innerHTML = `<span style="color:white;">${user.full_name}</span>`;
+
+            // Fetch active order from backend (later)
+
+            // Fetch Active Order from Backend
+        try {
+            const response = await fetch(`http://localhost:5000/api/orders/active?user_id=${user.id}`);
+            const result = await response.json();
+
+            const activeSection = document.getElementById('activeOrderSection');
+
+            if (result.success && result.data) {
+                const order = result.data;
+                document.getElementById('orderNumber').textContent = `#${order.order_number}`;
+                document.getElementById('orderStatus').textContent = order.status;
+                document.getElementById('deliveryInfo').textContent = `Est. Delivery: Soon`;
+                activeSection.style.display = 'block';
+            } else {
+                activeSection.style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Could not load active order", error);
+            document.getElementById('activeOrderSection').style.display = 'none';
+        }
+    }
+
+            // For now, hide if no active order
+            document.getElementById('activeOrderSection').style.display = 'none';
+        
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = "../login.html";
+        }
+
+        window.onload = loadUserData;
+    </script>
+</body>
+</html>

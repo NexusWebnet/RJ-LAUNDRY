@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+   <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+             <ul class="nav-menu">
+                <li><a href="dashboard.html">Home</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="track-order.html">Track Order</a></li>
+                <li><a href="place-order.html">Place Order</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <div class="user-info" id="userInfo">Loading...</div>
+                <a href="../index.html" onclick="logout()" class="btn btn-login">Logout</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+         <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                 <li><a href="dashboard.html">Home</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="track-order.html">Track Order</a></li>
+                <li><a href="place-order.html">Place Order</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="../index.html" onclick="logout()" class="btn btn-login">Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Tabs -->
+    <div class="order-tabs">
+        <button class="tab-btn active" onclick="switchTab(0)">Active</button>
+        <button class="tab-btn" onclick="switchTab(1)">Completed</button>
+        <button class="tab-btn" onclick="switchTab(2)">Pending</button>
+    </div>
+
+    <section class="orders-section">
+        <div class="container">
+            <!-- Active Orders -->
+            <div class="order-list active-orders" id="activeOrders">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Completed Orders -->
+            <div class="order-list completed-orders hidden" id="completedOrders">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../customer/dashboard.js"></script>
+    <script src="../index.js"></script>
+
+   <script>
+    let currentUser = null;
+    let allOrders = [];
+
+    async function loadOrders() {
+        currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = "../login.html";
+            return;
+        }
+
+        // Show user name
+        document.getElementById('userInfo').innerHTML = `<span style="color:white;">${currentUser.full_name}</span>`;
+
+        const userId = currentUser.user_id || currentUser.id;
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/orders?user_id=${userId}`);
+            const result = await response.json();
+
+            if (result.success) {
+                allOrders = result.data || [];
+                filterOrders('active'); // Show active by default
+            } else {
+                console.error(result.message);
+            }
+        } catch (error) {
+            console.error("Failed to load orders", error);
+        }
+    }
+
+    function filterOrders(status) {
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        // Hide all lists
+        document.querySelectorAll('.order-list').forEach(list => list.classList.add('hidden'));
+
+        let filteredOrders = [];
+
+        if (status === 'active') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            filteredOrders = allOrders.filter(order => !['Delivered', 'Completed'].includes(order.status));
+        } else if (status === 'completed') {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            filteredOrders = allOrders.filter(order => ['Delivered', 'Completed'].includes(order.status));
+        } else if (status === 'pending') {
+            document.querySelectorAll('.tab-btn')[2].classList.add('active');
+            filteredOrders = allOrders.filter(order => order.status === 'Pending');
+        }
+
+        renderOrders(filteredOrders, status);
+    }
+
+    function renderOrders(orders, status) {
+        const activeList = document.getElementById('activeOrders');
+        const completedList = document.getElementById('completedOrders');
+
+        activeList.innerHTML = '';
+        completedList.innerHTML = '';
+
+        if (orders.length === 0) {
+            const targetList = status === 'completed' ? completedList : activeList;
+            targetList.innerHTML = `<p>No ${status} orders found.</p>`;
+            return;
+        }
+
+        orders.forEach(order => {
+            const card = `
+                <div class="order-card" data-aos="fade-up">
+                    <div class="order-header">
+                        <div class="order-id">#${order.order_number}</div>
+                        <span class="status ${order.status.toLowerCase()}">${order.status}</span>
+                    </div>
+                    <div class="order-details">
+                        <p><strong>${order.services || 'Multiple Services'}</strong></p>
+                        <p>Total: GH₵${parseFloat(order.total_amount).toFixed(2)}</p>
+                        <p>Placed: ${new Date(order.created_at).toLocaleDateString()}</p>
+                    </div>
+                    <button class="btn track-btn" onclick="trackOrder('${order.order_number}')">Track</button>
+                </div>
+            `;
+
+            if (status === 'completed') {
+                completedList.innerHTML += card;
+            } else {
+                activeList.innerHTML += card;
+            }
+        });
+    }
+
+    function switchTab(tab) {
+        if (tab === 0) filterOrders('active');
+        else if (tab === 1) filterOrders('completed');
+        else if (tab === 2) filterOrders('pending');
+    }
+
+    function trackOrder(orderNumber) {
+    window.location.href = `track-order.html?order=${orderNumber}`;
+}
+    function logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href = "../login.html";
+    }
+
+    window.onload = loadOrders;
+</script>
+</body>
+</html>

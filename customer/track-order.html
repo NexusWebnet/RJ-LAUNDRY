@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/customer_dashboard.css">
+</head>
+<body>
+
+     <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+             <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <div class="user-info" id="userInfo">Loading...</div>
+                <a href="#" onclick="logout()" class="btn btn-login">Logout</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+         <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#" onclick="logout()" class="btn btn-login">Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+
+    <section class="track-order-section">
+        <div class="container">
+            <div class="order-info">
+                <div class="order-id" id="orderIdDisplay">Loading order...</div>
+            </div>
+
+            <!-- Tracking Timeline -->
+            <div class="timeline" id="timeline">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Order Details (Added at bottom) -->
+            <div class="order-info-box">
+                <h3>Order Details</h3>
+                <div class="info-grid" id="orderDetails">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Cancel Button -->
+            <button onclick="cancelOrder()" class="btn cancel-btn" id="cancelBtn" style="display:none; margin-top: 30px;">
+                Cancel Order
+            </button>
+
+            <!-- Help -->
+            <div class="help-box">
+                <i class="fas fa-headset"></i>
+                <div>
+                    <strong>Need Help?</strong>
+                    <p>Call us: <strong>055-000-0000</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i> RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../index.js"></script>
+    
+
+   <script>
+    async function loadTrackOrder() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+
+        if (!orderNumber) {
+            document.getElementById('orderIdDisplay').innerHTML = 'No order selected.';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/orders/track?order_number=${orderNumber}`);
+            const result = await response.json();
+
+            if (result.success && result.data) {
+                renderTimeline(result.data);
+            } else {
+                document.getElementById('timeline').innerHTML = '<p>Order not found.</p>';
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById('timeline').innerHTML = '<p>Could not load tracking info.</p>';
+        }
+    }
+
+    function renderTimeline(order) {
+        document.getElementById('orderIdDisplay').innerHTML = `Order ID <strong>#${order.order_number}</strong>`;
+
+        const timelineHTML = `
+            <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Order Placed</h4>
+                    <p>${new Date(order.created_at).toLocaleString()}</p>
+                </div>
+            </div>
+            <div class="timeline-item current">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>At Laundry</h4>
+                    <p>Processing your order</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Ready for Delivery</h4>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('timeline').innerHTML = timelineHTML;
+
+        // Render Order Details
+        document.getElementById('orderDetails').innerHTML = `
+            <div class="info-row">
+                <div class="info-label">Service</div>
+                <div class="info-value">Wash & Iron</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Total</div>
+                <div class="info-value">GH₵${parseFloat(order.total_amount).toFixed(2)}</div>
+            </div>
+        `;
+
+        // Show cancel button if order is not completed
+        if (!['Delivered', 'Completed'].includes(order.status)) {
+            document.getElementById('cancelBtn').style.display = 'block';
+        }
+    }
+
+    function cancelOrder() {
+        if (confirm("Are you sure you want to cancel this order?")) {
+            alert("Order cancelled successfully.");
+            window.location.href = "my-orders.html";
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href = "../login.html";
+    }
+
+    // Initialize
+    window.onload = loadTrackOrder;
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Pricing - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="RJ Laundry Logo" class="logo-image">
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#">Contact</a></li>
+                
+            </ul>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="register.html" class="btn btn-register">Register</a>
+            </div>
+
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Pricing Header -->
+    <section class="pricing-header">
+        <div class="container">
+            <h1>Our Pricing</h1>
+            <p>Transparent pricing. No hidden charges.</p>
+        </div>
+    </section>
+
+    <!-- Toggle Buttons -->
+    <div class="pricing-toggle">
+        <button class="toggle-btn active" id="weightBtn">By Weight (Kg)</button>
+        <button class="toggle-btn" id="clothesBtn">By Number of Clothes</button>
+    </div>
+
+    <!-- Pricing Lists -->
+    <section class="pricing-list-section">
+        <div class="container">
+
+            <!-- By Weight -->
+            <div class="pricing-list weight-list" id="weightList">
+                <div class="pricing-item">
+                    <div class="pricing-name">Wash & Iron</div>
+                    <div class="pricing-price">GH₵<strong>15.00</strong> <span>per kg</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">Dry Cleaning</div>
+                    <div class="pricing-price">GH₵<strong>25.00</strong> <span>per item</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">Only Wash</div>
+                    <div class="pricing-price">GH₵<strong>10.00</strong> <span>per kg</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">Only Iron</div>
+                    <div class="pricing-price">GH₵<strong>8.00</strong> <span>per item</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">Express Service</div>
+                    <div class="pricing-price">GH₵<strong>25.00</strong> <span>per kg</span></div>
+                </div>
+            </div>
+
+            <!-- By Number of Clothes -->
+            <div class="pricing-list clothes-list hidden" id="clothesList">
+                <div class="pricing-item">
+                    <div class="pricing-name">5 - 10 Clothes</div>
+                    <div class="pricing-price">GH₵<strong>180.00</strong> <span>flat rate</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">11 - 20 Clothes</div>
+                    <div class="pricing-price">GH₵<strong>320.00</strong> <span>flat rate</span></div>
+                </div>
+                <div class="pricing-item">
+                    <div class="pricing-name">21 - 30 Clothes</div>
+                    <div class="pricing-price">GH₵<strong>450.00</strong> <span>flat rate</span></div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        
+    </section>
+
+    <!-- Pricing Calculator -->
+    <section class="calculator-section">
+        <div class="container">
+            <h2>Calculate Your Cost</h2>
+            <div class="calculator">
+                <select id="serviceType" class="calc-input">
+                    <option value="15">Wash & Iron (GH₵15/kg)</option>
+                    <option value="10">Only Wash (GH₵10/kg)</option>
+                    <option value="8">Only Iron (GH₵8/item)</option>
+                    <option value="25">Dry Cleaning (GH₵25/item)</option>
+                </select>
+                
+                <input type="number" id="quantity" class="calc-input" placeholder="Enter quantity (kg or pieces)" min="1">
+                
+                <button onclick="calculatePrice()" class="btn calc-btn">Calculate</button>
+                
+                <div id="result" class="calc-result"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Note -->
+            <div class="pricing-note">
+                Bulk discounts available for 10kg and above.<br>
+                Contact us for more info.
+            </div>
+
+
+             <!-- footer section of the site  -->
+         <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+            <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233550000000?text=Hello%20RJ%20Laundry%2C%20I%20would%20like%20to%20inquire%20about%20your%20services" 
+   class="whatsapp-btn" 
+   target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="index.js"></script>
+
+    <!-- Toggle Script -->
+   
+    <script>
+        const weightBtn = document.getElementById('weightBtn');
+        const clothesBtn = document.getElementById('clothesBtn');
+        const weightList = document.getElementById('weightList');
+        const clothesList = document.getElementById('clothesList');
+
+        weightBtn.addEventListener('click', () => {
+            weightBtn.classList.add('active');
+            clothesBtn.classList.remove('active');
+            weightList.classList.remove('hidden');
+            clothesList.classList.add('hidden');
+        });
+
+        clothesBtn.addEventListener('click', () => {
+            clothesBtn.classList.add('active');
+            weightBtn.classList.remove('active');
+            clothesList.classList.remove('hidden');
+            weightList.classList.add('hidden');
+        });
+
+        // Simple Calculator
+        function calculatePrice() {
+            const rate = parseFloat(document.getElementById('serviceType').value);
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!quantity || quantity <= 0) {
+                resultDiv.innerHTML = `<p style="color:red;">Please enter a valid quantity</p>`;
+                return;
+            }
+
+            const total = rate * quantity;
+            resultDiv.innerHTML = `
+                <h3>Total Cost: <strong>GH₵${total.toFixed(2)}</strong></h3>
+                <small>${quantity} × GH₵${rate} = GH₵${total.toFixed(2)}</small>
+            `;
+        }
+
+    </script>
+</body>
+</html>

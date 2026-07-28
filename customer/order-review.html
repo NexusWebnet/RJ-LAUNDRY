@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Order - RJ Laundry</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="RJ Laundry" class="logo-img">
+            </a>
+             <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <div class="user-info" id="userInfo">Loading...</div>
+                <a href="#" onclick="logout()" class="btn btn-login">Logout</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+         <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#" onclick="logout()" class="btn btn-login">Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+
+    <section class="review-section">
+        <div class="container">
+            <h1>Review Your Order</h1>
+
+            <div class="review-card" data-aos="fade-up">
+                <div class="review-item">
+                    <span>Service</span>
+                    <span id="reviewService">Wash & Iron</span>
+                </div>
+                <div class="review-item">
+                    <span>Quantity</span>
+                    <span id="reviewQuantity">5.0 kg</span>
+                </div>
+                <div class="review-item">
+                    <span>Pickup</span>
+                    <span id="reviewPickup">123 Main Street, Accra</span>
+                </div>
+                <div class="review-total">
+                    <strong>Total</strong>
+                    <strong id="reviewTotal">GH₵75.00</strong>
+                </div>
+            </div>
+
+            <button onclick="confirmOrder()" class="btn btn-order-now full-width">
+                Confirm & Place Order
+            </button>
+
+            <a href="place-order.html" class="btn btn-secondary full-width" style="margin-top: 15px;">
+                ← Edit Order
+            </a>
+        </div>
+    </section>     <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Column 1: Logo & Description -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i>
+                        RJ Laundry
+                    </div>
+                    <p>Professional laundry service with reliable pickup and delivery across Ghana.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            055-000-0000
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            info@rjlaundry.com
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Accra, Ghana
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 RJ Laundry. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../index.js"></script>
+    <script src="../customer/dashboard.js"></script>
+
+    <script>
+        function loadReviewData() {
+            const orderData = JSON.parse(localStorage.getItem('currentOrder'));
+            if (orderData) {
+                document.getElementById('reviewService').textContent = orderData.service_name || "Wash & Iron";
+                document.getElementById('reviewQuantity').textContent = orderData.quantity + (orderData.quantity > 1 ? " kg" : " item");
+                document.getElementById('reviewPickup').textContent = orderData.pickup_address || "Default Address";
+                document.getElementById('reviewTotal').textContent = "GH₵" + orderData.total_amount.toFixed(2);
+            }
+        }
+
+        async function confirmOrder() {
+            const orderData = JSON.parse(localStorage.getItem('currentOrder'));
+            if (!orderData) return;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    localStorage.setItem('lastOrderNumber', result.order_number);
+                    window.location.href = "order-success.html";
+                } else {
+                    alert("❌ " + result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert("❌ Could not place order. Server error.");
+            }
+        }
+
+        window.onload = loadReviewData;
+    </script>
+</body>
+</html>

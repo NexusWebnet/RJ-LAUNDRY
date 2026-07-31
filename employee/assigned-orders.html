@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Orders - RJ Laundry</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tshirt"></i>
+                <span>RJ Laundry</span>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="assigned-orders.html" class="menu-item active">
+                    <i class="fas fa-clipboard-list"></i> Assigned Orders
+                </a>
+                <a href="laundry-process.html" class="menu-item">
+                    <i class="fas fa-tasks"></i> Laundry Process
+                </a>
+                <a href="washing-queue.html" class="menu-item">
+                    <i class="fas fa-soap"></i> Washing Queue
+                </a>
+                <a href="ironing-queue.html" class="menu-item">
+                    <i class="fas fa-iron"></i> Ironing Queue
+                </a>
+                <a href="packaging.html" class="menu-item">
+                    <i class="fas fa-box"></i> Packaging
+                </a>
+                <a href="notifications.html" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                    <span class="badge">3</span>
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <a href="#" class="menu-item logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="page-header">
+                <h1>Assigned Orders</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search orders...">
+                    </div>
+                    <button class="btn-filter"><i class="fas fa-filter"></i></button>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="tab active" data-filter="all">All</button>
+                <button class="tab" data-filter="pending">Pending</button>
+                <button class="tab" data-filter="in-progress">In Progress</button>
+                <button class="tab" data-filter="completed">Completed</button>
+            </div>
+
+            <!-- Orders List -->
+            <div class="orders-list" id="ordersList">
+                <!-- Orders will be loaded here by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/assigned-orders.js"></script>
+</body>
+</html>
